@@ -9,19 +9,33 @@ const gastos = [];
 
 // Funcion para tomar los datos y sumarlos al Array de "gastos"
 function sumarGasto() {
-  const descripcion = prompt("Ingrese DESCRIPCIÓN del gasto:");
-  const monto = parseFloat(prompt("Ingrese el MONTO:"));
+  const descripcion = document.getElementById("inputDescripcion").value;
+  const monto = document.getElementById("inputMonto").value;
 
   if (isNaN(monto)) {
-    console.log("Por favor, ingresar un monto valido.");
+    alert("Por favor, ingresar un monto valido.");
     return;
   }
 
-  const nuevoGasto = new transaccion(descripcion, monto);
+  const nuevoGasto = { descripcion, monto };
   gastos.push(nuevoGasto);
+  guardarGastos();
+  mostrarGastos();
+  calcularTotal();
 }
 
-// Funcion para calcular el total de los gastos
+// Evento al click del botón
+const botonAgregar = document.getElementById("boton-agregar");
+botonAgregar.addEventListener("click", function () {
+  sumarGasto();
+});
+
+// Guardar Gastos en Local Storage
+function guardarGastos() {
+  localStorage.setItem("gastos", JSON.stringify(gastos));
+}
+
+// Calcular el total de los gastos
 function calcularTotal() {
   const total = gastos.reduce(
     (acumulador, gasto) => acumulador + gasto.monto,
@@ -30,41 +44,34 @@ function calcularTotal() {
   return total;
 }
 
-// Funcion para mostrar todos los gastos
+// Mostrar Gastos en la lista
 function mostrarGastos() {
-  console.log("LISTA DE GASTOS:");
-  gastos.forEach((gasto, index) => {
-    console.log(
-      `Gasto ${index + 1}: ${gasto.descripcion}, Monto: $${gasto.monto}`
-    );
-  });
-}
+  let getGastos = localStorage.getItem("gastos");
+  getGastos = JSON.parse(getGastos);
 
-// Funcion para interactuar con el usuario
-function principal() {
-  while (true) {
-    const opciones = prompt(
-      "OPCIONES: (1) Agregar un gasto. (2) Calcular total de gastos. (3) Mostrar gastos. (4) Salir."
-    );
+  document.getElementById("listaGastos").innerHTML = "";
 
-    switch (opciones) {
-      case "1":
-        sumarGasto();
-        break;
-      case "2":
-        const total = calcularTotal();
-        console.log("TOTAL DE GASTOS: $ " + total);
-        break;
-      case "3":
-        mostrarGastos();
-        break;
-      case "4":
-        return;
-      default:
-        console.log("Opción no válida. Por favor, elija una opción válida.");
-    }
+  for (let i = 0; i < getGastos.length; i++) {
+    document.getElementById("listaGastos").innerHTML += `
+    <ul class="list-group list-group-horizontal">
+    <li class="list-group-item">${getGastos[i].descripcion}</li>
+    <li class="list-group-item">$ ${getGastos[i].monto}</li>
+    </ul>`;
   }
 }
 
-// Iniciar aplicacion
-principal();
+// Calcular y mostrar total
+function calcularTotal() {
+  let gastos = localStorage.getItem("gastos");
+  gastos = JSON.parse(gastos);
+  let total = 0;
+
+  for (let i = 0; i < gastos.length; i++) {
+    total += parseInt(gastos[i].monto);
+  }
+
+  // Mostrar total
+  let totalContainer = document.getElementById("totalContainer");
+
+  totalContainer.innerHTML = "Total de gastos $ " + total;
+}
