@@ -1,9 +1,3 @@
-// Funcion constructora del Objeto
-function transaccion(descripcion, monto) {
-  this.descripcion = descripcion;
-  this.monto = monto;
-}
-
 // Array para almacenar los gastos
 const gastos = [];
 
@@ -13,7 +7,7 @@ function sumarGasto() {
   const monto = document.getElementById("inputMonto").value;
 
   if (isNaN(monto)) {
-    alert("Por favor, ingresar un monto valido.");
+    alert("Por favor, ingresar un numero valido.");
     return;
   }
 
@@ -35,28 +29,19 @@ function guardarGastos() {
   localStorage.setItem("gastos", JSON.stringify(gastos));
 }
 
-// Calcular el total de los gastos
-function calcularTotal() {
-  const total = gastos.reduce(
-    (acumulador, gasto) => acumulador + gasto.monto,
-    0
-  );
-  return total;
-}
-
 // Mostrar Gastos en la lista
 function mostrarGastos() {
   let getGastos = localStorage.getItem("gastos");
   getGastos = JSON.parse(getGastos);
 
-  document.getElementById("listaGastos").innerHTML = "";
+  let listaGastos = document.getElementById("listaGastos");
+  listaGastos.innerHTML = ""; // Limpia la lista antes de agregar elementos
 
   for (let i = 0; i < getGastos.length; i++) {
-    document.getElementById("listaGastos").innerHTML += `
-    <ul class="list-group list-group-horizontal">
-    <li class="list-group-item">${getGastos[i].descripcion}</li>
-    <li class="list-group-item">$ ${getGastos[i].monto}</li>
-    </ul>`;
+    let gasto = getGastos[i];
+    let listItem = document.createElement("li");
+    listItem.textContent = `${gasto.descripcion}: $ ${gasto.monto}`;
+    listaGastos.appendChild(listItem);
   }
 }
 
