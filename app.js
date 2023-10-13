@@ -7,12 +7,20 @@ function sumarGasto() {
   const descripcion = document.getElementById("inputDescripcion").value;
 
   if (isNaN(monto)) {
-    alert("Por favor, ingresar un numero valido.");
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Por favor, ingresar un número válido.",
+    });
     return;
   }
 
   if (descripcion.trim() === "" || monto.trim() === "") {
-    alert("Por favor, complete ambos campos.");
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Por favor, complete ambos campos.",
+    });
     return;
   }
 
@@ -25,6 +33,12 @@ function sumarGasto() {
   // Limpiar campos de entrada
   document.getElementById("inputMonto").value = "";
   document.getElementById("inputDescripcion").value = "";
+
+  Swal.fire({
+    icon: "success",
+    title: "Gasto agregado",
+    text: "El gasto se ha agregado con éxito.",
+  });
 }
 
 // Evento Tecla Enter
@@ -71,7 +85,13 @@ function mostrarGastos() {
     // Botón para eliminar el gasto
     let deleteButton = document.createElement("button");
     deleteButton.textContent = "Eliminar";
-    deleteButton.classList.add("btn", "btn-secondary", "btn-sm", "ms-5");
+    deleteButton.classList.add(
+      "btn",
+      "btn-secondary",
+      "btn-sm",
+      "ms-5",
+      "mt-2"
+    );
     deleteButton.addEventListener("click", function () {
       eliminarGasto(i);
     });
