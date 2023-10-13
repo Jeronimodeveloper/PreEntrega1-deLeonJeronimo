@@ -128,3 +128,20 @@ function eliminarGasto(index) {
   mostrarGastos(); // Actualizar la lista de gastos
   calcularTotal(); // Recalcular el total
 }
+
+let cotizacion;
+
+async function getCotizacion() {
+  const response = await fetch(
+    "https://cotizaciones-brou-v2-e449.fly.dev/currency/latest"
+  );
+  const data = await response.json();
+  const navbar = document.getElementById("navbar");
+  navbar.textContent = "La cotizacion del dolar hoy es: " + data.rates.USD.buy;
+  // .then((response) => response.json())
+  // .then((data) => {
+  //   cotizacion = data.rates.USD.buy;
+  // });
+}
+
+getCotizacion();
