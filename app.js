@@ -129,6 +129,7 @@ function eliminarGasto(index) {
   calcularTotal(); // Recalcular el total
 }
 
+// Conexion con la API cotizacion
 let cotizacion;
 
 async function getCotizacion() {
@@ -137,11 +138,17 @@ async function getCotizacion() {
   );
   const data = await response.json();
   const navbar = document.getElementById("navbar");
-  navbar.textContent = "La cotizacion del dolar hoy es: " + data.rates.USD.buy;
-  // .then((response) => response.json())
-  // .then((data) => {
-  //   cotizacion = data.rates.USD.buy;
-  // });
+  navbar.textContent = `• Cotizacion del dolar hoy, URUGUAY: $ ${data.rates.USD.buy}`;
 }
 
 getCotizacion();
+
+// Conexion con la Fecha
+const fechaActual = new Date();
+
+const año = fechaActual.getFullYear();
+const mes = fechaActual.getMonth() + 1;
+const dia = fechaActual.getDate();
+
+const navDate = document.getElementById("navDate");
+navDate.textContent = `• Fecha actual: ${año}-${mes}-${dia}`;

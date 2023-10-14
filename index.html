@@ -11,6 +11,8 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- SweetAlert CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
@@ -18,16 +20,19 @@
   </head>
 
   <body class="bg-primary-subtle">
-    <div class="container text-center mt-5">
-      <nav>
-        <h2 id="navbar">hola loco</h2>
-      </nav>
+    <div class="container text-center mt-3">
+      <div class="bg-secondary p-1 mb-5 text-bg-secondary d-flex justify-content-evenly flex-column flex-sm-row rounded-bottom-5 scale-up-center">
+        <h6 id="navDate" class="mt-1"></h6>
+        <h6 id="navbar" class="mt-1"></h6>
+      </div>
+
       <div class="row mb-5">
-        <div class="col-12">
-          <h1 class="text-decoration-underline mb-5">CONTROL DE GASTOS</h1>
+        <div class="col-11 col-md-6 mx-auto mb-3 d-flex align-items-center justify-content-center rounded-4 bg-secondary scale-up-center">
+          <h1 class="text-center text-light"><strong>CONTROL DE GASTOS</strong></h1>
         </div>
 
-        <div class="col-md-6 mx-auto">
+        <div class="col-md-5 mx-auto mt-2 scale-up-center">
+          <h5>INGRESAR NUEVO GASTO</h5>
           <div class="input-group mb-3">
             <span class="input-group-text">MONTO</span>
             <input
@@ -39,7 +44,6 @@
             required
             /></span>
           </div>
-
           <div class="input-group mb-3">
             <span class="input-group-text">DESCRIPCIÓN</span>
             <input
@@ -51,28 +55,38 @@
             required
             /></span>
           </div>
-
           <button id="boton-agregar" class="btn btn-secondary" type="submit">AGREGAR</button>
         </div>
       </div>
+
         <hr>
-      <div class="row">
-        <div class="col-md-12">
+
+      <div class="row scale-up-center">
+        <div class="col-md-6">
         <h4 class="text-decoration-underline mb-3">LISTA DE GASTOS</h4>
-        <h5> Descripción / Monto</h5>
+        <h5 class="blockquote-footer mt-1"><em>Descripción - Monto</em></h5>
+        <div class="col-md-6 mx-auto mb-3 text-start" id="listaGastos">
         </div>
-
-        <div class="col-md-6 mx-auto mb-3" id="listaGastos">
+        </div>
+        
+        
+        <div class="col-md-6">
+          <h4 class="text-decoration-underline mb-3">TOTAL</h4>
+          <div>
+            <p id="totalContainer"></p>
+          </div>
         </div>
 
         <hr>
-        <h5 class="text-decoration-underline mb-3">TOTAL</h5>
-        <div>
-          <p id="totalContainer"></p>
-        </div>
-        </div>
+        
+      </div>
     </div>
 
+    <footer class="bg-secondary mt-5 p-1 text-bg-secondary d-flex justify-content-center scale-up-center">
+      <h6 class="me-5 mt-1">© 2023 Copyright Jeronimo de Leon</h6>
+      <a href="https://www.linkedin.com/in/jeronimodev/" class="text-reset mt-1">
+        <i class="bi bi-linkedin"></i>
+    </footer>
     <script src="app.js"></script>
     <!-- script de Boostrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
