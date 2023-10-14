@@ -1,7 +1,10 @@
-// Array para almacenar los gastos
-const gastos = [];
+mostrarGastos();
+calcularTotal();
 
-// Funcion para tomar los datos y sumarlos al Array de "gastos"
+// RECUPERACION DE DATOS
+const gastos = JSON.parse(localStorage.getItem("gastos")) || [];
+
+// FUNCION PARA TOMAR SUMAR DATOS AL ARRAY "gastos"
 function sumarGasto() {
   const monto = document.getElementById("inputMonto").value;
   const descripcion = document.getElementById("inputDescripcion").value;
@@ -30,47 +33,41 @@ function sumarGasto() {
   mostrarGastos();
   calcularTotal();
 
-  // Limpiar campos de entrada
+  // LIMPIAR CAMPOS DE ENTRADA
   document.getElementById("inputMonto").value = "";
   document.getElementById("inputDescripcion").value = "";
-
-  Swal.fire({
-    icon: "success",
-    title: "Gasto agregado",
-    text: "El gasto se ha agregado con éxito.",
-  });
 }
 
-// Evento Tecla Enter
+// EVENTO TECLA ENTER
 const inputDescripcion = document.getElementById("inputDescripcion");
 const inputMonto = document.getElementById("inputMonto");
 
 inputDescripcion.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
-    event.preventDefault(); // Evitar que se haga un salto de línea en el campo de entrada
+    event.preventDefault();
     sumarGasto();
   }
 });
 
 inputMonto.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
-    event.preventDefault(); // Evitar que se haga un salto de línea en el campo de entrada
+    event.preventDefault();
     sumarGasto();
   }
 });
 
-// Evento al click del botón
+// EVENTO CLICK EN AGREGAR
 const botonAgregar = document.getElementById("boton-agregar");
 botonAgregar.addEventListener("click", function () {
   sumarGasto();
 });
 
-// Guardar Gastos en Local Storage
+// GUARDAR GASTOS EN Local Storage
 function guardarGastos() {
   localStorage.setItem("gastos", JSON.stringify(gastos));
 }
 
-// Mostrar Gastos en la lista
+// MOSTRAR GASTOS en la lista
 function mostrarGastos() {
   let getGastos = localStorage.getItem("gastos");
   getGastos = JSON.parse(getGastos);
@@ -106,7 +103,7 @@ function mostrarGastos() {
   }
 }
 
-// Calcular y mostrar total
+// CALCULAR Y MOSTRAR TOTAL
 function calcularTotal() {
   let gastos = localStorage.getItem("gastos");
   gastos = JSON.parse(gastos);
@@ -123,13 +120,27 @@ function calcularTotal() {
 }
 
 function eliminarGasto(index) {
-  gastos.splice(index, 1); // Eliminar el gasto del array
-  guardarGastos(); // Actualizar el almacenamiento local
-  mostrarGastos(); // Actualizar la lista de gastos
-  calcularTotal(); // Recalcular el total
+  gastos.splice(index, 1);
+  guardarGastos();
+  mostrarGastos();
+  calcularTotal();
 }
 
-// Conexion con la API cotizacion
+// EVENTO CLICK Boton Borrar Lista
+const botonBorrarLista = document.getElementById("boton-borrar-lista");
+botonBorrarLista.addEventListener("click", function () {
+  borrarListaGastos();
+});
+
+// BORRAR LISTA GASTOS
+function borrarListaGastos() {
+  gastos.length = 0;
+  guardarGastos();
+  mostrarGastos();
+  calcularTotal();
+}
+
+// API Cotizacion Uruguay
 let cotizacion;
 
 async function getCotizacion() {
@@ -143,7 +154,7 @@ async function getCotizacion() {
 
 getCotizacion();
 
-// Conexion con la Fecha
+// CONECION con la Fecha Actual
 const fechaActual = new Date();
 
 const año = fechaActual.getFullYear();
