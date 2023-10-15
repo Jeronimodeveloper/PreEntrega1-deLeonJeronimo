@@ -149,7 +149,7 @@ async function getCotizacion() {
   );
   const data = await response.json();
   const navbar = document.getElementById("navbar");
-  navbar.textContent = `• Cotizacion del dolar hoy, URUGUAY: $ ${data.rates.USD.buy}`;
+  navbar.textContent = `URUGUAY: $ ${data.rates.USD.buy}`;
 }
 
 getCotizacion();
@@ -162,4 +162,4 @@ const mes = fechaActual.getMonth() + 1;
 const dia = fechaActual.getDate();
 
 const navDate = document.getElementById("navDate");
-navDate.textContent = `• Fecha actual: ${año}-${mes}-${dia}`;
+navDate.textContent = `${año}-${mes}-${dia}`;

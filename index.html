@@ -16,22 +16,25 @@
     <!-- SweetAlert CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
     <title>Control de Gastos</title>
   </head>
 
   <body class="bg-primary-subtle">
-    <div class="container text-center mt-3">
-      <div class="bg-secondary p-1 mb-5 text-bg-secondary d-flex justify-content-evenly flex-column flex-sm-row rounded-bottom-5 scale-up-center">
-        <h6 id="navDate" class="mt-1"></h6>
-        <h6 id="navbar" class="mt-1"></h6>
+    <div class="container text-center mt-2">
+      <div class="bg-secondary mb-3 text-bg-secondary d-flex justify-content-evenly flex-column flex-sm-row rounded-bottom-5 scale-up-center">
+        <div><h6 class="text-decoration-underline mt-2">Fecha actual: </h6><p id="navDate"></p></div>
+        <div><h6 class="text-decoration-underline mt-2">Cotización del dolar</h6><p id="navbar"></p></div>
       </div>
 
-      <div class="row mb-5">
-        <div class="col-11 col-md-6 mx-auto mb-3 d-flex align-items-center justify-content-center rounded-4 bg-secondary scale-up-center">
-          <h1 class="text-center text-light"><strong>CONTROL DE GASTOS</strong></h1>
+      <div class="row mb-4">
+        <div class="col-11 col-md-6 mx-auto d-flex align-items-center justify-content-center rounded-4 bg-secondary scale-up-center">
+          <h1 class="text-center text-light" id="ControlDeGastos"><strong>CONTROL DE GASTOS</strong></h1>
         </div>
 
-        <div class="col-md-5 mx-auto mt-2 scale-up-center">
+        <div class="col-md-5 mx-auto scale-up-center mt-3">
+          <img src="./img/devaluation.png" alt="gasto icon" id="iconEntrada">
           <h5>INGRESAR NUEVO GASTO</h5>
           <div class="input-group mb-3">
             <span class="input-group-text">MONTO</span>
@@ -83,7 +86,7 @@
       </div>
     </div>
 
-    <footer class="bg-secondary mt-5 p-1 text-bg-secondary d-flex justify-content-center scale-up-center">
+    <footer class="bg-secondary mt-2 p-1 text-bg-secondary d-flex justify-content-center scale-up-center">
       <h6 class="me-5 mt-1">© 2023 Copyright Jeronimo de Leon</h6>
       <a href="https://www.linkedin.com/in/jeronimodev/" class="text-reset mt-1">
         <i class="bi bi-linkedin"></i>
