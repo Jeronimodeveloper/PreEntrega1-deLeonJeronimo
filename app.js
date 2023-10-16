@@ -1,6 +1,30 @@
 mostrarGastos();
 calcularTotal();
 
+// OBETER FECHA
+const fechaActual = new Date();
+
+const año = fechaActual.getFullYear();
+const mes = fechaActual.getMonth() + 1;
+const dia = fechaActual.getDate();
+
+const navDate = document.getElementById("navDate");
+navDate.textContent = `${año}-${mes}-${dia}`;
+
+// API Cotizacion Uruguay
+let cotizacion;
+
+async function getCotizacion() {
+  const response = await fetch(
+    "https://cotizaciones-brou-v2-e449.fly.dev/currency/latest"
+  );
+  const data = await response.json();
+  const navUsd = document.getElementById("navUsd");
+  navUsd.textContent = `URUGUAY: $ ${data.rates.USD.buy}`;
+}
+
+getCotizacion();
+
 // RECUPERACION DE DATOS
 const gastos = JSON.parse(localStorage.getItem("gastos")) || [];
 
@@ -77,33 +101,52 @@ function mostrarGastos() {
 
   for (let i = 0; i < getGastos.length; i++) {
     let gasto = getGastos[i];
-    let listItem = document.createElement("li");
 
-    // Botón para eliminar el gasto
+    // DIV para lista y boton
+    let listItemContainer = document.createElement("div");
+    listItemContainer.classList.add("row", "mb-1");
+
+    // DIV para Elemento de la lista
+    let listItem = document.createElement("div");
+    listItem.textContent = `${gasto.descripcion}: $ ${gasto.monto}`;
+    listItem.classList.add(
+      "col-8",
+      "text-light",
+      "text-capitalize",
+      "text-start"
+    );
+
+    // BOTON ELiminar
     let deleteButton = document.createElement("button");
     deleteButton.textContent = "Eliminar";
     deleteButton.classList.add(
       "btn",
-      "btn-secondary",
+      "btn-light",
       "btn-sm",
-      "ms-5",
-      "mt-2"
+      "col-4",
+      "text-right"
     );
     deleteButton.addEventListener("click", function () {
       eliminarGasto(i);
     });
 
-    // Agregar descripción y monto al elemento de la lista
-    listItem.textContent = `${gasto.descripcion}: $ ${gasto.monto}`;
+    // AGREGAR Elemento y Boton
+    listItemContainer.appendChild(listItem);
+    listItemContainer.appendChild(deleteButton);
 
-    // Agregar el botón de eliminar al elemento de la lista
-    listItem.appendChild(deleteButton);
-
-    listaGastos.appendChild(listItem);
+    listaGastos.appendChild(listItemContainer);
   }
 }
 
-// CALCULAR Y MOSTRAR TOTAL
+// BOTON ELIMIANR GASTO
+function eliminarGasto(index) {
+  gastos.splice(index, 1);
+  guardarGastos();
+  mostrarGastos();
+  calcularTotal();
+}
+
+// CALCULAR TOTAL EN PESOS
 function calcularTotal() {
   let gastos = localStorage.getItem("gastos");
   gastos = JSON.parse(gastos);
@@ -113,18 +156,38 @@ function calcularTotal() {
     total += parseInt(gastos[i].monto);
   }
 
-  // Mostrar total
+  // MOSTRAR TOTAL
   let totalContainer = document.getElementById("totalContainer");
 
-  totalContainer.innerHTML = "Total de gastos $ " + total;
+  totalContainer.innerHTML = "• PESOS Uy $ " + total;
+  totalContainer.classList.add("text-light");
 }
 
-function eliminarGasto(index) {
-  gastos.splice(index, 1);
-  guardarGastos();
-  mostrarGastos();
-  calcularTotal();
+// CALCULAR TOTAL EN DOLARES
+async function calcularTotalEnDolares() {
+  let gastos = localStorage.getItem("gastos");
+  gastos = JSON.parse(gastos);
+  let total = 0;
+
+  for (let i = 0; i < gastos.length; i++) {
+    total += parseInt(gastos[i].monto);
+  }
+
+  // Obtener la cotización desde la API
+  const response = await fetch(
+    "https://cotizaciones-brou-v2-e449.fly.dev/currency/latest"
+  );
+  const data = await response.json();
+  const cotizacionDolar = data.rates.USD.buy;
+
+  const totalEnDolares = (total / cotizacionDolar).toFixed(2);
+
+  const totalDolaresElement = document.getElementById("totalDolares");
+  totalDolaresElement.textContent = "• DOLARES: us$ " + totalEnDolares;
+  totalDolaresElement.classList.add("text-light");
 }
+
+calcularTotalEnDolares();
 
 // EVENTO CLICK Boton Borrar Lista
 const botonBorrarLista = document.getElementById("boton-borrar-lista");
@@ -139,27 +202,3 @@ function borrarListaGastos() {
   mostrarGastos();
   calcularTotal();
 }
-
-// API Cotizacion Uruguay
-let cotizacion;
-
-async function getCotizacion() {
-  const response = await fetch(
-    "https://cotizaciones-brou-v2-e449.fly.dev/currency/latest"
-  );
-  const data = await response.json();
-  const navbar = document.getElementById("navbar");
-  navbar.textContent = `URUGUAY: $ ${data.rates.USD.buy}`;
-}
-
-getCotizacion();
-
-// CONECION con la Fecha Actual
-const fechaActual = new Date();
-
-const año = fechaActual.getFullYear();
-const mes = fechaActual.getMonth() + 1;
-const dia = fechaActual.getDate();
-
-const navDate = document.getElementById("navDate");
-navDate.textContent = `${año}-${mes}-${dia}`;

@@ -24,6 +24,10 @@
 /* FUENTE TITULO */
 #ControlDeGastos {
   font-family: "Righteous", sans-serif;
-  font-size: 3rem;
+  font-size: 2.5rem;
   letter-spacing: 4px;
+}
+
+.colorgreen {
+  background-color: #2aaaaa;
 }
