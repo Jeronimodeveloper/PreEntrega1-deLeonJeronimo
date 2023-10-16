@@ -56,6 +56,7 @@ function sumarGasto() {
   guardarGastos();
   mostrarGastos();
   calcularTotal();
+  calcularTotalEnDolares();
 
   // LIMPIAR CAMPOS DE ENTRADA
   document.getElementById("inputMonto").value = "";
@@ -144,6 +145,7 @@ function eliminarGasto(index) {
   guardarGastos();
   mostrarGastos();
   calcularTotal();
+  calcularTotalEnDolares();
 }
 
 // CALCULAR TOTAL EN PESOS
