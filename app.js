@@ -95,6 +95,10 @@ function guardarGastos() {
 // MOSTRAR GASTOS en la lista
 function mostrarGastos() {
   let getGastos = localStorage.getItem("gastos");
+  if (getGastos == null) {
+    return;
+  }
+
   getGastos = JSON.parse(getGastos);
 
   let listaGastos = document.getElementById("listaGastos");
