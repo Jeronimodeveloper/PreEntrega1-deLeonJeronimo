@@ -217,4 +217,5 @@ function borrarListaGastos() {
   guardarGastos();
   mostrarGastos();
   calcularTotal();
+  calcularTotalEnDolares();
 }
