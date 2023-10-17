@@ -155,7 +155,12 @@ function eliminarGasto(index) {
 // CALCULAR TOTAL EN PESOS
 function calcularTotal() {
   let gastos = localStorage.getItem("gastos");
-  gastos = JSON.parse(gastos);
+  if (gastos == null) {
+    gastos = [];
+  } else {
+    gastos = JSON.parse(gastos);
+  }
+
   let total = 0;
 
   for (let i = 0; i < gastos.length; i++) {
@@ -172,7 +177,12 @@ function calcularTotal() {
 // CALCULAR TOTAL EN DOLARES
 async function calcularTotalEnDolares() {
   let gastos = localStorage.getItem("gastos");
-  gastos = JSON.parse(gastos);
+  if (gastos == null) {
+    gastos = [];
+  } else {
+    gastos = JSON.parse(gastos);
+  }
+
   let total = 0;
 
   for (let i = 0; i < gastos.length; i++) {
